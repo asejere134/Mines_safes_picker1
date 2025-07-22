@@ -1,0 +1,59 @@
+<!DOCTYPE html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Mines 4 Safe Picker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .numbers {
+      margin-top: 30px;
+      font-size: 24px;
+      letter-spacing: 8px;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 Smart Mines 4 Safe Picker</h1>
+  <p>Click below to get 4 safe numbers (out of 25)</p>
+  <button onclick="generateSafes()">Next Round</button>
+  <div class="numbers" id="result">••••</div>
+
+  <script>
+    function generateSafes() {
+      const all = [...Array(25).keys()].map(i => i + 1);
+      // Cryptographically shuffle
+      for (let i = all.length - 1; i > 0; i--) {
+        const j = window.crypto.getRandomValues(new Uint32Array(1))[0] % (i + 1);
+        [all[i], all[j]] = [all[j], all[i]];
+      }
+      const traps = all.slice(0, 3);
+      const safes = all.slice(3, 7).sort((a, b) => a - b);
+      document.getElementById("result").innerHTML = safes.join(' , ');
+    }
+  </script>
+</body>
+</html>￼Enter
